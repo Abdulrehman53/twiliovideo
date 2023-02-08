@@ -30,7 +30,7 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
   bool _isFrontCamera = true;
   bool _isAudioMuted = false;
   bool _isVideoMuted = false;
-
+ late CameraCapturer _cameraCapturer;
   Room? _room;
   CameraCapturer? _capturer;
   LocalVideoTrack? _localVideoTrack;
@@ -213,7 +213,7 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
 //           enableAutomaticSubscription: true,
 //         );
 
-        // var ok = await TwilioProgrammableVideo.requestPermissionForCameraAndMicrophone();
+        //var ok = await TwilioProgrammableVideo.requestPermissionForCameraAndMicrophone();
         // await TwilioProgrammableVideo.setSpeakerphoneOn(true);
         final sources = await CameraSource.getSources();
         // await TwilioProgrammableVideo.setAudioSettings(speakerphoneEnabled: false, bluetoothPreferred: false);
@@ -222,8 +222,10 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
         );
         _localVideoTrack = LocalVideoTrack(true, _capturer!);
         // var widget = localVideoTrack.widget();
-        await TwilioProgrammableVideo.setAudioSettings(
-            speakerphoneEnabled: false, bluetoothPreferred: false);
+         await TwilioProgrammableVideo.setAudioSettings(
+            speakerphoneEnabled: false, bluetoothPreferred: false); 
+            
+            
         print(_capturer);
         trackId = const Uuid().v4();
         print(trackId);
@@ -234,17 +236,20 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
           roomName: AppConfig.roomname,
           preferredAudioCodecs: [OpusCodec()],
           audioTracks: [LocalAudioTrack(true, 'audio_track-$trackId')],
+          
           dataTracks: [
             LocalDataTrack(
               DataTrackOptions(name: 'data_track-$trackId'),
             )
           ],
+          preferredVideoCodecs: [H264Codec()],
           videoTracks: [LocalVideoTrack(true, _capturer!)],
           enableNetworkQuality: true,
           networkQualityConfiguration: NetworkQualityConfiguration(
             remote: NetworkQualityVerbosity.NETWORK_QUALITY_VERBOSITY_MINIMAL,
           ),
-          enableDominantSpeaker: true,
+          enableDominantSpeaker: false,
+          enableAutomaticSubscription: true,
         );
         print(connectOptions);
         _room = await TwilioProgrammableVideo.connect(connectOptions);
@@ -282,12 +287,12 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
     switch (state) {
       case AppLifecycleState.resumed:
         // print("app in resumed");
-        Navigator.of(context).push(
+      /*   Navigator.of(context).push(
           MaterialPageRoute(
               builder: (context) => VideoCall(
                     username: widget.username,
                   )),
-        );
+        ); */
         // _connectToRoom();
         // //await toggleVideoEnabled(true);
 
@@ -301,8 +306,8 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
         // _localAudioTrack = null;
         // _localVideoTrack = null;
 
-        await _onHangup();
-        Navigator.of(context).pop();
+      /*   await _onHangup();
+        Navigator.of(context).pop(); */
         // Navigator.of(context).push(
         //   MaterialPageRoute(builder: (context) => HomePage()),
         // );
@@ -653,8 +658,8 @@ class _VideoCallState extends State<VideoCall> with WidgetsBindingObserver {
       );
     } else {
       children.add(Container(
-        height: 40,
-        width: 40,
+        height: 0,
+        width: 0,
         color: Colors.red,
       ));
     }

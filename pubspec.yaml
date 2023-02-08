@@ -33,7 +33,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  twilio_programmable_video: ^1.0.0
+  twilio_programmable_video: ^1.0.1
   # twilio_programmable_video: ^0.9.0+2
   http: ^0.13.5
   uuid: ^3.0.6
@@ -41,7 +41,16 @@ dependencies:
   wakelock: ^0.6.2
   flutter_background: ^1.1.0
   flutter_easy_permission: ^1.1.2
-  permission_handler: ^9.2.0
+  permission_handler: ^10.2.0
+  after_layout: ^1.1.0
+  flutter_bloc: ^8.1.1
+  rxdart: ^0.27.1
+  device_info: ^2.0.2
+  native_device_orientation: ^1.0.0
+  intl: ^0.17.0
+  recase: ^4.0.0
+  collection: ^1.15.0-nullsafety.4
+
 
 dev_dependencies:
   flutter_test:

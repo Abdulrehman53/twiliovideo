@@ -148,12 +148,12 @@ class _HomePageState extends State<HomePage> {
                 // onPressed: () => _connectToRoom(),
 
                 onPressed: () async {
-                  await requestPermission();
+                   await requestPermission();
                   //bool p = getPermission();
-
+/* 
                   bool hasPermissions = await FlutterBackground.hasPermissions;
                   bool success = await FlutterBackground.initialize(
-                      androidConfig: androidConfig);
+                      androidConfig: androidConfig);  */
                   // bool bg = await FlutterBackground.enableBackgroundExecution();
                   Navigator.of(context).push(
                     MaterialPageRoute(
